@@ -22,6 +22,8 @@ min_value_arr = []
 
 k = 5
 
+f = open("output.txt","w")
+
 with open("./diabetes.csv",'r') as file:
     csvfile = csv.reader(file)
     for row in csvfile:
@@ -98,7 +100,7 @@ for row_in in range(0,input_length):    # loop to the inputs
         new_output = "No Diabetes"
 
     test_data[row_in].append(new_output)
-
+    
     #reset values
     distance_list.clear()
     k_index.clear()
@@ -113,3 +115,7 @@ for row_in in range(0,input_length):    # loop to the inputs
 
 for i in range(0,input_length):
     print(test_data[i])
+
+for line in test_data:
+    f.write("%s "%line)
+    f.write("\n")
