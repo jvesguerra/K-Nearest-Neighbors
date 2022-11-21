@@ -6,6 +6,9 @@ test_data = []
 distance_list = []
 k_neighbors = []
 k_index = []
+class_0 = []
+class_1 = []
+min_value_arr = []
 
 k = 5
 
@@ -31,38 +34,27 @@ each_input_length = len(test_data[0])
 
 traverse_col = each_row_length - 2
 
-for row_in in range(0,1):    # loop to the inputs
-    for row_data in range(0,1):         # test the inputs to all of the current data
-        # for col_data in range(0,traverse_col):  # to select points
-        #     print("CURRENT",data[row_data][col_data], " ", data[row_data][col_data+1])
-        #     print("TEST DATA",test_data[row_in][col_data], " ", test_data[row_in][col_data+1])
-        #     print(" ")
-        print("NEW ROW")
-        # check computation
+for row_in in range(0,input_length):    # loop to the inputs
+    print(test_data[row_in])
+    print("")
+    for row_data in range(0,data_length):         # test the inputs to all of the current data
         eudistance = 0
         for col in range(0,(each_row_length-1)):
-            
             x = float(test_data[row_in][col])
             v = float(data[row_data][col])
             eudistance = ((x - v)**2) + eudistance
-            #eudistance = math.sqrt(eudistance)
-            print("x",test_data[row_in][col]," - ", "v",data[row_data][col]," ",x-v)
-            print("distace = ", eudistance)
             if(col == (each_row_length-2)):
                 eudistance = math.sqrt(eudistance)
-                print("distace = ", eudistance)
                 distance_list.append(eudistance)
-                data[row_data].append(eudistance)
-                #print("distace = ", eudistance)
-        # check computation
 
-        
     # get the location of the min values
     for i in range(0,k):
         min_value = min(distance_list)
         min_index = distance_list.index(min_value)
         k_index.append(min_index)
-        distance_list[min_index] = 9999;
+        distance_list[min_index] = 99999;
+
+        #min_value_arr.append(min_index)
 
     k_index.sort()
 
@@ -71,25 +63,42 @@ for row_in in range(0,1):    # loop to the inputs
         min_index = k_index[i]
         k_neighbors.append(data[min_index])
 
-    count_of_0 = 0
-    count_of_1 = 0
+        #k_neighbors.append(min_value_arr[i])
+
+
+    # checking k neighbors only
+    for i in range(0,k):
+        #print(k_neighbors[i][each_row_length])
+        print(k_neighbors[i])
+    print(" ")
 
     for i in range(0,k):
+        #output = k_neighbors[i][class_index]
         output = int(k_neighbors[i][class_index])
         if output == 1:
-            count_of_1 += 1
+            class_1.append(k_neighbors[i])
         else:
-            count_of_0 += 1
+            class_0.append(k_neighbors[i])
 
+    print("Class 0 = ", len(class_0))
+    print("Class 1 = ", len(class_1))
 
-    if count_of_0 > count_of_1:
-        new_output = "No Diabetes"
-    else:
+    if len(class_0) > len(class_1):
         new_output = "With Diabetes"
+    else:
+        new_output = "No Diabetes"
 
-    #print("appending")
     test_data[row_in].append(new_output)
 
+    #reset values
+    distance_list.clear()
+    k_index.clear()
+    k_neighbors.clear()
+    class_0.clear()
+    class_1.clear()
+    eudistance = 0
 
-# for i in range(0,input_length):
-#     print(test_data[i])
+    min_value_arr.clear()
+
+for i in range(0,input_length):
+    print(test_data[i])
