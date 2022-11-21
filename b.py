@@ -8,6 +8,16 @@ k_neighbors = []
 k_index = []
 class_0 = []
 class_1 = []
+class_2 = []
+class_3 = []
+class_4 = []
+classes = []
+classes.append(class_0)
+classes.append(class_1)
+classes.append(class_2)
+classes.append(class_3)
+classes.append(class_4)
+classes_count = []
 min_value_arr = []
 
 k = 5
@@ -32,11 +42,7 @@ class_index = each_row_length -1
 input_length = len(test_data)
 each_input_length = len(test_data[0])
 
-traverse_col = each_row_length - 2
-
 for row_in in range(0,input_length):    # loop to the inputs
-    print(test_data[row_in])
-    print("")
     for row_data in range(0,data_length):         # test the inputs to all of the current data
         eudistance = 0
         for col in range(0,(each_row_length-1)):
@@ -63,27 +69,30 @@ for row_in in range(0,input_length):    # loop to the inputs
         min_index = k_index[i]
         k_neighbors.append(data[min_index])
 
-        #k_neighbors.append(min_value_arr[i])
-
-
-    # checking k neighbors only
-    for i in range(0,k):
-        #print(k_neighbors[i][each_row_length])
-        print(k_neighbors[i])
-    print(" ")
-
     for i in range(0,k):
         #output = k_neighbors[i][class_index]
         output = int(k_neighbors[i][class_index])
         if output == 1:
-            class_1.append(k_neighbors[i])
+            classes[1].append(k_neighbors[i])
+        elif output == 2:
+            classes[2].append(k_neighbors[i])
+        elif output == 3:
+            classes[3].append(k_neighbors[i])
+        elif output == 3:
+            classes[4].append(k_neighbors[i])
         else:
-            class_0.append(k_neighbors[i])
+            classes[0].append(k_neighbors[i])
 
-    print("Class 0 = ", len(class_0))
-    print("Class 1 = ", len(class_1))
+    # get max value
+    for i in range(0,5): # 5 number of classes
+        classes_count.append(len(classes[i]))
 
-    if len(class_0) > len(class_1):
+    max_value = max(classes_count)
+    max_index = classes_count.index(max_value)
+    
+    new_output = max_index
+
+    if new_output == 1:
         new_output = "With Diabetes"
     else:
         new_output = "No Diabetes"
@@ -94,9 +103,11 @@ for row_in in range(0,input_length):    # loop to the inputs
     distance_list.clear()
     k_index.clear()
     k_neighbors.clear()
-    class_0.clear()
-    class_1.clear()
     eudistance = 0
+    classes_count.clear()
+
+    for i in range(0,5):
+        classes[i].clear()
 
     min_value_arr.clear()
 
