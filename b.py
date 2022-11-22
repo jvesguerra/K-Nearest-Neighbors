@@ -20,16 +20,17 @@ classes.append(class_4)
 classes_count = []
 min_value_arr = []
 
-k = 5
+#k = 5
+k = int(input("Enter k: "))
 
 f = open("output.txt","w")
 
-with open("./diabetes.csv",'r') as file:
+with open("./fruits.csv",'r') as file:
     csvfile = csv.reader(file)
     for row in csvfile:
         data.append(row)
 
-with open("./input.in",'r') as file:
+with open("./in.in",'r') as file:
     csvfile = csv.reader(file)
     for row in csvfile:
         test_data.append(row)
@@ -80,7 +81,7 @@ for row_in in range(0,input_length):    # loop to the inputs
             classes[2].append(k_neighbors[i])
         elif output == 3:
             classes[3].append(k_neighbors[i])
-        elif output == 3:
+        elif output == 4:
             classes[4].append(k_neighbors[i])
         else:
             classes[0].append(k_neighbors[i])
@@ -94,10 +95,10 @@ for row_in in range(0,input_length):    # loop to the inputs
     
     new_output = max_index
 
-    if new_output == 1:
-        new_output = "With Diabetes"
-    else:
-        new_output = "No Diabetes"
+    # if new_output == 1:
+    #     new_output = "With Diabetes"
+    # else:
+    #     new_output = "No Diabetes"
 
     test_data[row_in].append(new_output)
     
@@ -113,9 +114,24 @@ for row_in in range(0,input_length):    # loop to the inputs
 
     min_value_arr.clear()
 
-for i in range(0,input_length):
-    print(test_data[i])
+#write to out
+
+with open('fruits-out.csv','w',newline='') as file:
+    writer = csv.writer(file)
+    for i in range(0,data_length):
+        writer.writerow(data[i])
+    for i in range(0,input_length):
+        writer.writerow(test_data[i])
+
+# with open('diabetes-out.csv','w',newline='') as file:
+#     writer = csv.writer(file)
+#     for i in range(0,data_length):
+#         writer.writerow(data[i])
+#     for i in range(0,input_length):
+#         writer.writerow(test_data[i])
 
 for line in test_data:
     f.write("%s "%line)
     f.write("\n")
+
+print("Done! Check output.txt")
